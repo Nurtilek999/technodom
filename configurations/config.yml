@@ -1,0 +1,19 @@
+App:
+  Port: 8080
+
+#Database:
+#  Host: "127.0.0.1"
+#  Port: 5432
+#  Username: "postgres"
+#  Password: "admin"
+#  DBName: "postgres"
+#  Sslmode: "disable"
+
+#Docker
+Database:
+  Host: "database"
+  Port: "5431"
+  Username: "root"
+  Password: "secret"
+  DBName: "merchant"
+  Sslmode: "disable"
