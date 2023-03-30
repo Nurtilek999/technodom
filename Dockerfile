@@ -1,18 +1,4 @@
-#FROM golang:1.19.4-alpine
-#
-##WORKDIR /merchant
-#ENV GOPATH=/
-#COPY go.mod ./
-#COPY go.sum ./
-#
-#RUN go mod download
-#
-#COPY *.go ./
-#RUN go build -o merchant ./main.go
-#
-#CMD ["./merchant"]
-
-FROM golang:1.19.4-alpine
+FROM golang:1.19.4
 
 RUN go version
 ENV GOPATH=/
@@ -20,9 +6,6 @@ ENV GOPATH=/
 COPY ./ ./
 
 RUN go mod download
-RUN go build -o merchant ./main.go
+RUN go build -o technodom ./main.go
 
-CMD ["./merchant"]
-
-
-
+CMD ["./technodom"]

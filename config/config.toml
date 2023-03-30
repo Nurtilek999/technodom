@@ -1,0 +1,4 @@
+bind_addr = ":8080"
+[Technodom]
+database_url = "postgresql://postgres:admin@localhost:5432/postgres?sslmode=disable"
+ttl = 1000000

@@ -1,30 +1,32 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"merchant/api"
-	"merchant/pkg/config"
-	"merchant/pkg/database"
+	"github.com/gorilla/mux"
+	"go.uber.org/fx"
+	"technodom/internal/app/appserver"
+	"technodom/internal/app/config"
+	"technodom/internal/app/handler"
+	"technodom/internal/repository/cache"
+	repo "technodom/internal/repository/pgrepository"
+	"technodom/internal/service"
+	logrus_log "technodom/internal/util/logger/logrus-log"
 )
 
-func init() {
-	config.GetConfig()
-}
-
 func main() {
-	db, err := database.InitDB()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
+	fx.New(
+		fx.Provide(
+			service.NewService,
+			config.NewConfig,
+			logrus_log.New,
+			mux.NewRouter,
+			repo.New,
+			cache.NewLocalCache,
+		),
 
-	fmt.Println("wwws")
-
-	defer db.Close()
-
-	port := ":8080"
-	app := api.SetupRouter(db)
-	app.Run(port)
+		fx.Invoke(
+			handler.New,
+			appserver.RegisterHooks,
+		),
+	).Run()
 
 }
